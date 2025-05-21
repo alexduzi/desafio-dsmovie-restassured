@@ -56,6 +56,20 @@ public class ScoreControllerRA {
 	
 	@Test
 	public void saveScoreShouldReturnUnprocessableEntityWhenMissingMovieId() throws Exception {
+		Map<String, Object> mapScoreRequest = new HashMap<>();
+		mapScoreRequest.put("score", 4);
+		JSONObject newScore = new JSONObject(mapScoreRequest);
+
+		given()
+				.header("Content-type", "application/json")
+				.header("Authorization", "Bearer " + adminToken)
+				.body(newScore)
+				.contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.when()
+				.put("/scores")
+				.then()
+				.statusCode(422);
 	}
 	
 	@Test
