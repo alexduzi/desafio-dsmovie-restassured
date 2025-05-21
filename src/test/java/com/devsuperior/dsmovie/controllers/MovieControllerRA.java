@@ -25,9 +25,9 @@ public class MovieControllerRA {
 
 	@BeforeEach
 	public void setUp() throws JSONException {
-		clientUsername = "maria@gmail.com";
+		clientUsername = "alex@gmail.com";
 		clientPassword = "123456";
-		adminUsername = "alex@gmail.com";
+		adminUsername = "maria@gmail.com";
 		adminPassword = "123456";
 
 		clientToken = obtainAccessToken(clientUsername, clientPassword);
@@ -123,6 +123,23 @@ public class MovieControllerRA {
 	
 	@Test
 	public void insertShouldReturnForbiddenWhenClientLogged() throws Exception {
+		Map<String, Object> mapMovieRequest = new HashMap<>();
+		mapMovieRequest.put("title", "Test Movie");
+		mapMovieRequest.put("score", 4.4);
+		mapMovieRequest.put("count", 1);
+		mapMovieRequest.put("image", "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg");
+		JSONObject newMovie = new JSONObject(mapMovieRequest);
+
+		given()
+				.header("Content-type", "application/json")
+				.header("Authorization", "Bearer " + clientToken)
+				.body(newMovie)
+				.contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.when()
+				.post("/movies")
+				.then()
+				.statusCode(403);
 	}
 	
 	@Test

@@ -25,9 +25,9 @@ public class ScoreControllerRA {
 
 	@BeforeEach
 	public void setUp() throws JSONException {
-		clientUsername = "maria@gmail.com";
+		clientUsername = "alex@gmail.com";
 		clientPassword = "123456";
-		adminUsername = "alex@gmail.com";
+		adminUsername = "maria@gmail.com";
 		adminPassword = "123456";
 
 		clientToken = obtainAccessToken(clientUsername, clientPassword);
