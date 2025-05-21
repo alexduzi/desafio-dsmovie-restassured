@@ -144,5 +144,22 @@ public class MovieControllerRA {
 	
 	@Test
 	public void insertShouldReturnUnauthorizedWhenInvalidToken() throws Exception {
+		Map<String, Object> mapMovieRequest = new HashMap<>();
+		mapMovieRequest.put("title", "Test Movie");
+		mapMovieRequest.put("score", 4.4);
+		mapMovieRequest.put("count", 1);
+		mapMovieRequest.put("image", "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg");
+		JSONObject newMovie = new JSONObject(mapMovieRequest);
+
+		given()
+				.header("Content-type", "application/json")
+				.header("Authorization", "Bearer " + invalidToken)
+				.body(newMovie)
+				.contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.when()
+				.post("/movies")
+				.then()
+				.statusCode(401);
 	}
 }
