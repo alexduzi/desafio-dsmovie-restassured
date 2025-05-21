@@ -73,6 +73,21 @@ public class ScoreControllerRA {
 	}
 	
 	@Test
-	public void saveScoreShouldReturnUnprocessableEntityWhenScoreIsLessThanZero() throws Exception {		
+	public void saveScoreShouldReturnUnprocessableEntityWhenScoreIsLessThanZero() throws Exception {
+		Map<String, Object> mapScoreRequest = new HashMap<>();
+		mapScoreRequest.put("movieId", 100);
+		mapScoreRequest.put("score", -4);
+		JSONObject newScore = new JSONObject(mapScoreRequest);
+
+		given()
+				.header("Content-type", "application/json")
+				.header("Authorization", "Bearer " + adminToken)
+				.body(newScore)
+				.contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.when()
+				.put("/scores")
+				.then()
+				.statusCode(422);
 	}
 }
