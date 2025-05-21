@@ -86,7 +86,17 @@ public class MovieControllerRA {
 	}
 	
 	@Test
-	public void findByIdShouldReturnNotFoundWhenIdDoesNotExist() {	
+	public void findByIdShouldReturnNotFoundWhenIdDoesNotExist() {
+		Long existingId = 100L;
+
+		given()
+				.header("Content-type", "application/json")
+				.contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.when()
+				.get("/movies/{id}", existingId)
+				.then()
+				.statusCode(404);
 	}
 	
 	@Test
